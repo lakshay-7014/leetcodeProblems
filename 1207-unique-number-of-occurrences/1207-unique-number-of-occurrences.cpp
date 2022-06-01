@@ -1,15 +1,17 @@
 class Solution {
 public:
     bool uniqueOccurrences(vector<int>& arr) {
-        sort(arr.begin(),arr.end());
-        int count=1;
         vector<int> ans;
-        int n=arr.size();
-        int i=0;
-        int j=0;
-        while(i<n){
-            for( j=i;j<n-1;j++){
-                if(arr[j]==arr[j+1]){
+        int size = arr.size();
+        int i = 0;
+        
+        sort(arr.begin(),arr.end());
+        
+        while(i<size){
+            int count = 1;
+            
+            for(int j =i+1;j<size;j++){
+                if(arr[i]==arr[j]){
                     count++;
                 }
                 else{
@@ -17,18 +19,20 @@ public:
                 }
             }
             ans.push_back(count);
-            count=1;
-           i=j+1;
+            i = i+count;
             
         }
+        size = ans.size();
+        
         sort(ans.begin(),ans.end());
         
-        int x=ans.size();
-        for(int i=0;i<x-1;i++){
+        for(int i = 0;i<size-1;i++){
             if(ans[i]==ans[i+1]){
-                return 0;
+                return false;
             }
         }
-        return 1;
+        
+        return true;
+        
     }
 };
