@@ -9,11 +9,13 @@
 class Solution {
 public:
     bool hasCycle(ListNode *head) {
+        
+        //floyds cycle approach
         if(head==NULL || head->next==NULL){
             return 0;
         }
-        ListNode* fast=head;
-        ListNode* slow=head;
+        ListNode* fast=head;  //fast will increase by 2 steps
+        ListNode* slow=head;  //slow will increase by 1 steps
         
         while(slow!=NULL && fast!=NULL){
             fast=fast->next;
