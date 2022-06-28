@@ -29,3 +29,23 @@ public:
         return 0;
     }
 };
+
+//Another approach
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+        if(head==NULL){
+            return 0;
+        }
+         map<ListNode*,bool> visit;
+        ListNode* temp=head;
+        while(temp!=NULL){
+            if(visit[temp]==true){
+                return 1;
+            }
+            visit[temp]=true;
+            temp=temp->next;
+        }
+        return 0;
+    }
+};
