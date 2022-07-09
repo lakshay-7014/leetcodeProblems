@@ -9,17 +9,12 @@ public:
             if(flag==0 && s[st]!=s[e]){
                 flag=1;
                 st++;
-                // if(s[st]!=s[e]){
-                //     st--;
-                //     e--;
-                // }
             }
             else if(s[st]!=s[e]){
                 flag=2;
                 break;
             }
             else{
-                //swap(s[st],s[e]);
                 st++;
                 e--;
             }
@@ -30,10 +25,6 @@ public:
             if(flag1==0 && s[st]!=s[e]){
                 flag1=1;
                 e--;
-                // if(s[st]!=s[e]){
-                //     st--;
-                //     e--;
-                // }
             }
             else if(s[st]!=s[e]){
                 return false;
