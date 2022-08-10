@@ -9,34 +9,52 @@
  * };
  */
 class Solution {
-public:
-    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
-        ListNode* temp1= list1;
-        ListNode* temp2 = list2;
-        ListNode * merge= new ListNode();
-        ListNode * head=merge;
+    private:
+    ListNode* solve(ListNode* list1, ListNode* list2){
+        if(list1->next == NULL){
+            list1->next=list2;
+            return list1;
+        }
         
-        while(temp1!=NULL && temp2!=NULL){
-            if(temp1->val < temp2->val){
-                merge->next=temp1;
-                temp1=temp1->next;
+        
+            ListNode* curr1= list1;
+            ListNode* next1=curr1->next;
+            ListNode* curr2=list2;
+            ListNode* next2= curr2->next;
+        while(curr2 !=NULL && next1!=NULL){
+            if((curr2->val >= curr1->val)  && (curr2->val<= next1->val)){
+                curr1->next=curr2;
+                next2=curr2->next;
+                curr2->next=next1;
+                curr1=curr2;
+                curr2=next2;
             }
             else{
-                merge ->next = temp2;
-                temp2=temp2->next;
+                curr1=next1;
+                next1=next1->next;
+                if(next1==NULL){
+                    curr1->next=curr2;
+                    return list1;
+                }
             }
-            merge=merge->next;
         }
-        while(temp1!=NULL){
-            merge->next=temp1;
-            temp1=temp1->next;
-            merge=merge->next;
+        return list1;
+    }
+public:
+    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+        if(list1==NULL){
+            return list2;
         }
-         while(temp2!=NULL){
-            merge->next=temp2;
-            temp2=temp2->next;
-            merge=merge->next;
+        if(list2==NULL){
+            return list1;
         }
-        return head->next;
+        
+        if(list1-> val <= list2->val){
+            return solve(list1,list2);
+        }
+        else{
+           return solve(list2,list1);
+        }
+        return list1;
     }
 };
