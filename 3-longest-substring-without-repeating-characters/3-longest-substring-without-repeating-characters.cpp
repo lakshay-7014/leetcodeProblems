@@ -1,7 +1,7 @@
 class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
-        vector<int> ans(256,0);
+        vector<int> ans(256,0); //256 different characters a string can have
         int n=s.length();
         int maxi=0;
         int left=0;
