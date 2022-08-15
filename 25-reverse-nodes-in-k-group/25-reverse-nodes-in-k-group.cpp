@@ -10,7 +10,7 @@
  */
 class Solution {
     private:
-    int leng(ListNode* head){
+         int leng(ListNode* head){
        ListNode* temp =head;
        int count=0;
        while(temp != NULL){
@@ -24,26 +24,25 @@ public:
         if(head==NULL){
             return NULL;
         }
-        int len=leng(head);
+      int len=leng(head);
        if(len<k){
            return head;
        }
-        ListNode* next=NULL;
         ListNode* curr=head;
         ListNode* prev=NULL;
-        int count=0;
-        
-        while( curr!=NULL && count<k ){
-            next=curr->next;
-            curr->next=prev;
+        ListNode* forw=curr->next;
+        int cnt=0;
+        while( cnt<k){
+            forw=curr->next;
+             curr->next=prev;
             prev=curr;
-            curr=next;
-            count++;
+            curr=forw;
+            cnt++;
         }
-        
-        if(next!=NULL ){
-            head->next=reverseKGroup(next,k);
+        if(forw!=NULL){
+            head->next= reverseKGroup(forw,k);
         }
         return prev;
+        
     }
 };
