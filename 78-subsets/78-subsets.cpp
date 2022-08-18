@@ -11,6 +11,7 @@ class Solution {
         //include krna hai
         output.push_back(nums[index]);
         solve(nums,output,index+1,ans);
+        output.pop_back();
         
     }
 public:
@@ -19,6 +20,7 @@ public:
         vector<int> output;
         int index=0;
         solve(nums,output,index,ans);
+      
         return ans;
     }
 };
