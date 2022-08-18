@@ -1,20 +1,27 @@
 class Solution {
+    void solve(vector<int> &ans, int index,int k,int &size){
+        if(size==1){
+            return ;
+        }
+        index=(index+k-1) % size;
+        ans.erase(ans.begin()+index);
+        size=ans.size();
+        solve(ans,index, k, size);
+        
+    }
 public:
     int findTheWinner(int n, int k) {
-        vector<int> temp;
-  for (int i = 0; i < n; i++) {
-    temp.push_back(i + 1);
-  }
-  int size = temp.size();
-  int i = 0;
-
-  while (size != 1) {
-    i = (i + k - 1) % size;
-
-    temp.erase(temp.begin() + i);
-    size--;
-  }
-        int ans=temp[0];
-        return ans;
+        if(n==1){
+            return 1;
+        }
+        vector<int> ans;
+        int index=0;
+        for(int i=1;i<=n;i++){
+            ans.push_back(i);
+        }
+        int size=ans.size();
+        solve(ans,index,k,size);
+        
+        return ans[0];
     }
 };
