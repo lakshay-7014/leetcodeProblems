@@ -13,21 +13,14 @@ class Solution {
     }
 public:
     double myPow(double x, int n) {
-        int n1=abs(n);
        
-        double ans= power(x,n1);
-        if(n>=0){
-            return ans;
-        }
-        double dig=1;
-        ans=dig/ans;
-         if(n== -2147483648 && x==2){
-            return dig-1;
-        }
-        else if(n== -2147483648 && x==2){
-            return dig;
-        }
+       
+        double ans= power(x,n);
+       if(n>=0){
+           return power(x,n);
+       }
+        return 1/power(x,abs(n));
         
-        return ans;
+       
     }
 };
