@@ -45,7 +45,6 @@ public:
     bool exist(vector<vector<char>>& board, string word) {
          int row=board.size();
         int col=board[0].size();
-        
         vector<vector<int>> visited(row,vector<int>(col,0));
         int index=0;
         for(int i=0;i<row;i++){
