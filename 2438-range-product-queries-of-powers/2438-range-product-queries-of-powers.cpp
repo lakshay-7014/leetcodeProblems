@@ -32,7 +32,7 @@ public:
             if(queries[j][0]!=queries[j][1]){
                 int pow=1;
                 for(int k = queries[j][0] ; k<= queries[j][1];k++){
-                    pow=(pow *1LL *  powers[k]) % int(1e9 + 7);
+                    pow=(pow *1LL *  powers[k]) % int(1e9 + 7); //imp concept
                 }
                 ans.push_back(pow);
             }
