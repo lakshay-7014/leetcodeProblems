@@ -11,8 +11,6 @@ public:
             int e= logs[i][1];
             mp1[i]= e-s;
             s=e;
-        }
-        for(int i=0;i<row;i++){
             mp2[i]=logs[i][0];
         }
         
