@@ -122,7 +122,10 @@ class Solution {
           
       }
       else{
-          return (root->data>root->left->data) && (root->data>root->right->data);
+          bool left= isMaxHeap(root->left);
+          bool right= isMaxHeap(root->right);
+          
+          return (left && right && (root->data>root->left->data) && (root->data>root->right->data));
       }
   }
   
