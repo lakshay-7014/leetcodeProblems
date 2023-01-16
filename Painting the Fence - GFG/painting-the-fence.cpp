@@ -53,10 +53,26 @@ class Solution{
     
   
 }
+
+int solve3(int n , int k){
+    
+    int prev=k;
+    int curr= add(k, mul(k,k-1));
+    if(n==1){
+        return prev;
+    }
+    
+    for(int i=3;i<=n;i++){
+        int ans= add(mul(prev,k-1),mul(curr,k-1));
+        prev=curr;
+        curr=ans;
+    }
+    return curr;
+}
     long long countWays(int n, int k){
         // code here
         
-        return solve2(n,k);
+        return solve3(n,k);
     }
 };
 
