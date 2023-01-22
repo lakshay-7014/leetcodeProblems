@@ -24,12 +24,32 @@ class Solution
         dp[curr][prev+1]=max(inc,exc);
         return dp[curr][prev+1];
     }
+    
+    
+    int solve2(int n, int a[]){
+        if(n==0){
+            return 0;
+        }
+        vector<int> temp;
+        temp.push_back(a[0]);
+        for(int i=1;i<n;i++){
+            if(a[i]> temp.back()){
+                temp.push_back(a[i]);
+            }
+            else{
+                int index= lower_bound(temp.begin(),temp.end(),a[i]) - temp.begin();
+                temp[index]=a[i];
+            }
+        }
+        return temp.size();
+    }
     //Function to find length of longest increasing subsequence.
     int longestSubsequence(int n, int a[])
     {
        // your code here
        vector<vector<int>> dp(n,vector<int>(n+1,-1));
-       return solve(n,a,0,-1,dp);
+      // return solve(n,a,0,-1,dp);
+      return solve2(n,a);
     }
 };
 
