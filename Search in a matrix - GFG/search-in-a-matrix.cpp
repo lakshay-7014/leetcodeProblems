@@ -11,24 +11,18 @@ public:
 	{
 	    // your code here
 	    int i=0;
-	    while(i<N){
-	        int s=0;
-	        int e=M-1;
-	        int mid=s+(e-s)/2;
-	        while(s<=e){
-	            int target=mat[i][mid];
-	            if(target==X){
-	                return 1;
-	            }
-	            else if(target>X){
-	                e=mid-1;
-	            }
-	            else{
-	                s=mid+1;
-	            }
-	            mid=s+(e-s)/2;
+	    int j=M-1;
+	    
+	    while(i<N &&j>=0){
+	        if(mat[i][j]==X){
+	            return 1;
 	        }
-	        i++;
+	        else if(mat[i][j]>X){
+	            j--;
+	        }
+	        else if(mat[i][j]<X){
+	            i++;
+	        }
 	    }
 	    return 0;
 	}
