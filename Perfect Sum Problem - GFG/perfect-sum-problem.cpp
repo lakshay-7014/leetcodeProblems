@@ -15,7 +15,12 @@ class Solution{
             return 0;
         }
         if(target==0){
-            return 1 + solve(index+1,arr,target-arr[index],n,dp);
+            int ans=1;
+            for(int i = index;i<n;i++){
+                ans=ans+ solve(i+1,arr,target-arr[i],n,dp);
+            }
+        //    return 1 + solve(index+1,arr,target-arr[index],n,dp);
+        return ans;
         }
         if(target<0){
             return 0;
