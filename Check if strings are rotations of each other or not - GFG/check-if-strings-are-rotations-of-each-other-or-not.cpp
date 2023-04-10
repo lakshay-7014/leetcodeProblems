@@ -18,16 +18,10 @@ class Solution
         if((int)s1.size()!=(int)s2.size()){
             return false;
         }
-        int i=0;
-        while(i<s2.size()){
-            char c = s2.back();
-            s2.pop_back();
-            s2=c+s2;
-            if(s1==s2){
-                return true;
-            }
-            i++;
-        }
+       s1.append(s1);
+       if(s1.find(s2) != string :: npos){
+           return true;
+       }
         return false;
     }
 };
