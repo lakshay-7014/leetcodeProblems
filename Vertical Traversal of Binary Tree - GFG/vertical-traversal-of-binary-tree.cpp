@@ -101,35 +101,25 @@ class Solution
 {
     public:
     //Function to find the vertical order traversal of Binary Tree.
+    
+    void solve(Node* root, map<pair<int,int>, vector<int>> &mp,int h,int lvl ){
+        if(root==NULL){
+            return;
+        }
+        mp[{h,lvl}].push_back(root->data);
+        solve(root->left,mp,h-1,lvl+1);
+        solve(root->right,mp,h+1,lvl+1);
+    }
     vector<int> verticalOrder(Node *root)
     {
         //Your code here
-         vector<int> ans;
-        if(root==NULL){
-            return ans;
-        }
-        map<int, map< int ,vector<int> > >mp ;
-        queue < pair <Node* , pair <int,int> > >  q; 
-        q.push(make_pair(root,make_pair(0,0)));
-        while(q.size()!=0){
-            pair <Node* , pair <int,int> > temp =q.front();
-            q.pop();
-            Node* frontNode=temp.first;
-            int hd=temp.second.first;
-            int lvl=temp.second.second;
-            mp[hd][lvl].push_back(frontNode->data);
-            if(frontNode->left){
-                q.push(make_pair(frontNode->left,make_pair(hd-1,lvl+1)));
-            }
-            if(frontNode->right){
-                 q.push(make_pair(frontNode->right,make_pair(hd+1,lvl+1)));
-            }
-        }
-        for(auto i : mp){
-            for(auto j : i.second){
-                for(auto k : j.second){
-                    ans.push_back(k);
-                }
+        
+        map<pair<int,int>,vector< int > > mp;
+        solve(root,mp,0,0);
+        vector<int> ans;
+        for(auto & i : mp){
+            for(auto & j : i.second){
+                ans.push_back(j);
             }
         }
         return ans;
