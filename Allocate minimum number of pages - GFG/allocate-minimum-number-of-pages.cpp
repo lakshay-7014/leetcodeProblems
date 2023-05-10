@@ -31,9 +31,6 @@ class Solution
                 return false;
             }
         }
-        if(cnt>M){
-            return false;
-        }
         return true;
     }
     int findPages(int A[], int N, int M) 
