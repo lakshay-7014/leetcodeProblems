@@ -7,14 +7,17 @@ class Solution {
   public:
     // Function to return the adjacency list for each vertex.
     vector<vector<int>> printGraph(int V, vector<int> adj[]) {
-        vector < vector<int> > ad(V);
+        // Code here
+        vector<vector<int>> ans;
         for(int i=0;i<V;i++){
-            ad[i].push_back(i);
-            for(int j=0;j<adj[i].size();j++){
-                ad[i].push_back(adj[i][j]);
+            vector<int> temp;
+            temp.push_back(i);
+            for(auto j : adj[i]){
+                temp.push_back(j);
             }
+            ans.push_back(temp);
         }
-        return ad;
+        return ans;
     }
 };
 
