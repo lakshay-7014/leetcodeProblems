@@ -30,13 +30,31 @@ class Solution {
         }
         return false;
     }
+    
+    
+    bool dfs(int node,int parent,unordered_map<int,bool> &vis,vector<int> adj[]){
+        vis[node]=true;
+        
+        for(auto j : adj[node]){
+            if(vis[j]==false){
+                bool ans= dfs(j,node,vis,adj);
+                if(ans==true){
+                    return true;
+                }
+            }
+            else if(j!=parent){
+                return true;
+            }
+        }
+        return false;
+    }
     bool isCycle(int V, vector<int> adj[]) {
         
         unordered_map<int,bool> vis;
         
         for(int i=0;i<V;i++){
             if(vis[i]==false){
-                bool ans= solve(i,vis,adj);
+                bool ans= dfs(i,-1,vis,adj);
                 if(ans==true){
                     return true;
                 }
