@@ -26,17 +26,35 @@ class Solution {
     
     bool isCyclic(int V, vector<int> adj[]) {
         // code here
-        vector<bool> vis(V,0);
-        vector<bool> dfsVis(V,0);
-        for(int i=0;i<V;i++){
-            if(vis[i]==false){
-                bool ans= dfs(i,vis,dfsVis,adj);
-                if(ans==true){
-                    return true;
-                }
-            }
-        }
-        return false;
+         vector<int> in(V,0);
+	    for(int i=0;i<V;i++){
+	        for(auto j : adj[i]){
+	            in[j]++;
+	        }
+	    }
+	    queue<int> q;
+	    for(int i=0;i<V;i++){
+	        if(in[i]==0){
+	            q.push(i);
+	        }
+	    }
+	    vector<int> ans;
+	    
+	    while(q.size()!=0){
+	        int node=q.front();
+	        q.pop();
+	        ans.push_back(node);
+	        for(auto j : adj[node]){
+	            in[j]--;
+	            if(in[j]==0){
+	                q.push(j);
+	            }
+	        }
+	    }
+	    if(ans.size()==V){
+	        return false;
+	    }
+	    return true;
         
     }
 };
