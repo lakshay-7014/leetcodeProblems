@@ -8,7 +8,7 @@ using namespace std;
 // User function Template for C++
 class Solution {
   public:
-     void solve(unordered_map<int,vector<pair<int,int>>> adj,unordered_map<int,bool> &visited, stack<int> &s, int node ){
+  void solve(unordered_map<int,vector<pair<int,int>>> adj,unordered_map<int,bool> &visited, stack<int> &s, int node ){
          visited[node]=true;
          for(auto i : adj[node]){
              if(visited[i.first]==false){
@@ -19,7 +19,7 @@ class Solution {
      }
      vector<int> shortestPath(int N,int M, vector<vector<int>>& edges){
         // code here
-        unordered_map<int,vector<pair<int,int>>> adj;
+         unordered_map<int,vector<pair<int,int>>> adj;
         for(int i=0;i<edges.size();i++){
             int a = edges[i][0];
             int x= edges[i][1];
@@ -35,27 +35,25 @@ class Solution {
                 solve(adj,visited,s,i);
             }
         }
-        vector<int> temp(N,INT_MAX);
-        temp[0]=0;
         
-        int st=0;
+        vector<int> ans(N,INT_MAX);
+        ans[0]=0;
+        
         while(s.size()!=0){
-            int val = s.top();
-            if(temp[val]!=INT_MAX){
-                for(auto i : adj[val]){
-                    if(temp[val] + i.second < temp[i.first]){
-                        temp[i.first]=temp[val]+i.second;
+            int node=s.top();
+            s.pop();
+            if(ans[node]!=INT_MAX){
+                for(auto j : adj[node]){
+                    if(ans[node]+j.second < ans[j.first]){
+                        ans[j.first]=ans[node]+j.second;
                     }
                 }
             }
             else{
-                temp[val]=-1;
+                ans[node]=-1;
             }
-            s.pop();
-            
         }
-       
-        return temp;
+        return ans;
     }
 };
 
