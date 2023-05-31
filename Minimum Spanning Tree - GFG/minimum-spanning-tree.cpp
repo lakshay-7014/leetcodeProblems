@@ -7,42 +7,61 @@ class Solution
 {
 	public:
 	//Function to find sum of weights of edges of the Minimum Spanning Tree.
+   static bool cmp(pair<int, pair<int, int>> &a,pair<int, pair<int, int>> &b){
+          return a.second.second<b.second.second;
+    }
+    int findParent(int node,vector<int> &parent){
+        if(parent[node]==node){
+            return node;
+        }
+        return parent[node]=findParent(parent[node],parent);
+}
+
+void unionset(int u , int v,vector<int> &parent, vector<int> &rank){
+    u=findParent(u,parent);
+    v= findParent(v,parent);
+
+    if(rank[u]<rank[v]){
+        parent[u]=v;
+    }
+    else if(rank[v]<rank[u]){
+        parent[v]=u;
+    }
+    else{
+        parent[v]=u;
+        rank[u]++;
+    }
+}
     int spanningTree(int V, vector<vector<int>> adj[])
     {
         // code here
-        vector<bool> vis(V,false);
-        vector<int> dist(V,INT_MAX);
-        vector<int> parent(V,-1);
-        parent[0]=-1;
-        dist[0]=0;
-        
+         vector<pair<int, pair<int, int>>> edges;
+        for(int i=0; i<V; i++){
+            for(auto it: adj[i]){
+                //cout<<it[0]<<" "<<it[1]<<" "<<it[2]<<"tt\n";
+                edges.push_back({i, {it[0], it[1]}});
+            }
+        }
+        sort(edges.begin(),edges.end(),cmp);
+        vector<int> parent(V);
+        vector<int> rank(V);
         for(int i=0;i<V;i++){
-            int mini=INT_MAX;
-            int u;
-            for(int j=0;j<V;j++){
-                if(vis[j]==false && dist[j]<mini){
-                    mini=dist[j];
-                    u=j;  
-                }
-            }
-            vis[u]=true;
-            for(auto j : adj[u]){
-                int v=j[0];
-                int wt=j[1];
-                if(vis[v]==false && wt<dist[v]){
-                    parent[v]=u;
-                    dist[v]=wt;
-                }
-            }
+           rank[i]=0;
+           parent[i]=i;
         }
         int ans=0;
-        for(int i=0;i<V;i++){
-            if(parent[i]!=-1){
-                ans+=dist[i];
-            }
+    for(int i=0;i<edges.size();i++){
+        int u = edges[i].first;
+        int v= edges[i].second.first;
+        int wt= edges[i].second.second;
+        u=findParent(u,parent);
+        v=findParent(v,parent);
+        if(u!=v){
+            unionset(u,  v,parent,rank);
+            ans+=wt;            
         }
+    }
         return ans;
-        
     }
 };
 
