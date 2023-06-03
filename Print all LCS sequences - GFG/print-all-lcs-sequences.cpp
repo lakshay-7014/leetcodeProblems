@@ -6,7 +6,6 @@ using namespace std;
 class Solution
 {
 	public:
-	  set<string> ans;
 	  int solve(string &s1, string &s2, int x , int y , int i , int j ,vector<vector<int>> &dp){
         if(i>=x || j>=y){
             return 0;
@@ -22,39 +21,39 @@ class Solution
         
         return dp[i][j]=ans;
     }
-    void solve2(int x , int y , string temp,string &s1,string &s2,int len){
+    
+    
+    
+    void solve2(int index1,int index2,string &s1,string &s2,int x,int y,int len,string temp,set<string> &ans){
         if(len==0){
             ans.insert(temp);
             return ;
         }
         
-        for(int i= x ;i < s1.size();i++){
-            for(int j=y;j<s2.size();j++){
+        for(int i=index1;i<x;i++){
+            for(int j=index2;j<y;j++){
                 if(s1[i]==s2[j]){
-                    solve2(i+1,j+1,temp+s1[i],s1,s2,len-1);
+                    solve2(i+1,j+1,s1,s2,x,y,len-1,temp+s1[i],ans);
                 }
             }
         }
-        
     }
-    
 		vector<string> all_longest_common_subsequences(string s1, string s2)
 		{
 		    // Code here
 		    int x= s1.size();
-		    int y= s2.size();
-		    vector<vector<int>> dp(x+1,vector<int>(y+1,-1));
-            int len=solve(s1,s2,x,y,0,0,dp);
-            
-            string temp="";
-            
-            solve2(0,0,temp,s1,s2,len);
-            
-            vector<string> res;
-            for(auto &i : ans){
-                res.push_back(i);
-            }
-            return res;
+		    int y=s2.size();
+		     vector<vector<int>> dp(x+1,vector<int>(y+1,-1));
+		     
+		     int len= solve(s1,s2,x,y,0,0,dp);
+		     string temp="";
+		     set<string> ans;
+		     solve2(0,0,s1,s2,x,y,len,temp,ans);
+		     vector<string> res;
+		     for(auto &i: ans){
+		         res.push_back(i);
+		     }
+		     return res;
 		}
 };
 
