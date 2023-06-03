@@ -9,32 +9,50 @@ using namespace std;
 
 class Solution{   
 public:
-   bool solve(vector<int> &arr,int sum , int i,vector<vector<int>> &dp){
-       if(sum==0){
-           return 1;
-       }
-       if(i>=arr.size() || sum<0){
-         return 0;
-       }
-       
-       
-       if(dp[i][sum]!=-1){
-           return dp[i][sum];
-       }
-      bool inc = solve(arr,sum-arr[i],i+1,dp);
-      bool exc = solve(arr,sum,i+1,dp);
-      
-      dp[i][sum]= inc||exc;
-      
-      return dp[i][sum];
-   }
+    bool solve(int i , int target,vector<int> &arr,int sum){
+        if(target==sum){
+            return 1;
+        }
+        if(i>=arr.size()){
+            return 0;
+        }
+        
+        bool inc= solve(i+1,target+arr[i],arr,sum);
+        bool exc=solve(i+1,target,arr,sum);
+        return inc||exc;
+    }
+    
+    //tabulation
+    bool solve2(vector<int> &arr,int sum){
+        int n=arr.size();
+        vector<vector<int>> dp(n+1,vector<int>(sum+1,0));
+        for(int i=0;i<=n;i++){
+            dp[i][0]=1;
+        }
+        for(int j=1;j<=sum;j++){
+            dp[0][j]=0;
+        }
+        
+        for(int i=1;i<=n;i++){
+            for(int j=1;j<=sum;j++){
+                if(arr[i-1]<=j){
+                  dp[i][j]=dp[i-1][j] || dp[i-1][j-arr[i-1]];
+                }
+                else{
+                    dp[i][j]=dp[i-1][j];
+                }
+            }
+        }
+        return dp[n][sum];
+        
+        
+        
+    }
     bool isSubsetSum(vector<int>arr, int sum){
         // code here 
-        
-        int ans=0;
         int n = arr.size();
         vector<vector<int>> dp(n,vector<int>(sum+1,-1));
-        return solve(arr,sum,0,dp);
+        return solve2(arr,sum);
     }
 };
 
