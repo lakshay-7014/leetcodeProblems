@@ -28,6 +28,33 @@ public:
 
         return dp[i][sum];
     }
+    
+    
+    //tabulation
+    int solve2(int n ,int arr[],int sum){
+        
+        vector<vector<int>> dp(n+1,vector<int>(sum+1,0));
+        for(int i=0;i<=n;i++){
+            dp[i][0]=1;
+        }
+        for(int j=1;j<=sum;j++){
+            dp[0][j]=0;
+        }
+        
+        for(int i=1;i<=n;i++){
+            for(int j=1;j<=sum;j++){
+                if(arr[i-1]<=j){
+                  dp[i][j]=dp[i-1][j] || dp[i-1][j-arr[i-1]];
+                }
+                else{
+                    dp[i][j]=dp[i-1][j];
+                }
+            }
+        }
+        return dp[n][sum];
+        
+        
+    }
     int equalPartition(int N, int arr[])
     {
         // code here
@@ -43,7 +70,7 @@ public:
         sum= sum/2;
         vector<vector<int>> dp(N,vector<int> (sum+1,-1));
 
-        return solve(0,N,sum,arr,dp);
+        return solve2(N,arr,sum);
     }
 };
 
