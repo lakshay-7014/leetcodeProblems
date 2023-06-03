@@ -21,15 +21,19 @@ class Solution {
     if(dp[i][flag][limit]!=-1){
         return dp[i][flag][limit];
     }
+    int ans1=0;
+    int ans2=0;
+    int ans3=0;
+    int ans4=0;
     
     if(flag==1){
-        int ans1= -price[i]+solve(i+1,0,limit,price,n,dp);
-        int ans2= solve(i+1,1,limit,price,n,dp);
+        ans1= -price[i]+solve(i+1,0,limit,price,n,dp);
+         ans2= solve(i+1,1,limit,price,n,dp);
         return dp[i][flag][limit]=max(ans1,ans2);
     }
     else{
-         int ans3= price[i]+solve(i+1,1,limit-1,price,n,dp);
-         int ans4= solve(i+1,0,limit,price,n,dp);
+          ans3= price[i]+solve(i+1,1,limit-1,price,n,dp);
+          ans4= solve(i+1,0,limit,price,n,dp);
          return dp[i][flag][limit]=max(ans3,ans4);
     }
     
