@@ -11,19 +11,13 @@ class Solution{
         long long pairWithMaxSum(long long arr[], long long N)
     {
         // Your code goes here
-        long long maxi=arr[0]+arr[1];
-        long long curr =arr[0]+arr[1];
-        int s=0;
-        for(long long i=2;i<N;i++){
-            curr=curr-arr[s];
-            curr+=arr[i];
-            if(curr>maxi){
-                maxi=curr;
-            }
-            s++;
-        }
-        return maxi;
+        long long ans=INT_MIN;
         
+        for(int i=0;i<N-1;i++){
+            long long curr= arr[i]+arr[i+1];
+            ans=max(ans,curr);
+        }
+        return ans;
     }
 };
 
