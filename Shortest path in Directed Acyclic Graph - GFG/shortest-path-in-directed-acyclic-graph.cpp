@@ -8,7 +8,7 @@ using namespace std;
 // User function Template for C++
 class Solution {
   public:
-  void solve(unordered_map<int,vector<pair<int,int>>> adj,unordered_map<int,bool> &visited, stack<int> &s, int node ){
+    void solve(unordered_map<int,vector<pair<int,int>>> adj,unordered_map<int,bool> &visited, stack<int> &s, int node ){
          visited[node]=true;
          for(auto i : adj[node]){
              if(visited[i.first]==false){
