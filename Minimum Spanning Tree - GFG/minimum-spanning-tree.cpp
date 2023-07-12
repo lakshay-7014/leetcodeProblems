@@ -7,7 +7,7 @@ class Solution
 {
 	public:
 	//Function to find sum of weights of edges of the Minimum Spanning Tree.
-   static bool cmp(pair<int, pair<int, int>> &a,pair<int, pair<int, int>> &b){
+	 static bool cmp(pair<int, pair<int, int>> &a,pair<int, pair<int, int>> &b){
           return a.second.second<b.second.second;
     }
     int findParent(int node,vector<int> &parent){
@@ -18,8 +18,8 @@ class Solution
 }
 
 void unionset(int u , int v,vector<int> &parent, vector<int> &rank){
-    u=findParent(u,parent);
-    v= findParent(v,parent);
+  //  u=findParent(u,parent);
+//    v= findParent(v,parent);
 
     if(rank[u]<rank[v]){
         parent[u]=v;
