@@ -6,62 +6,62 @@ using namespace std;
 class Solution
 {
 	public:
+	static bool cmp(pair<int,pair<int,int>> &a,pair<int,pair<int,int>> & b){
+	    return a.second.second<b.second.second;
+	}
 	//Function to find sum of weights of edges of the Minimum Spanning Tree.
-	 static bool cmp(pair<int, pair<int, int>> &a,pair<int, pair<int, int>> &b){
-          return a.second.second<b.second.second;
-    }
-    int findParent(int node,vector<int> &parent){
-        if(parent[node]==node){
-            return node;
-        }
-        return parent[node]=findParent(parent[node],parent);
-}
-
-void unionset(int u , int v,vector<int> &parent, vector<int> &rank){
-  //  u=findParent(u,parent);
-//    v= findParent(v,parent);
-
-    if(rank[u]<rank[v]){
-        parent[u]=v;
-    }
-    else if(rank[v]<rank[u]){
-        parent[v]=u;
-    }
-    else{
-        parent[v]=u;
-        rank[u]++;
-    }
-}
+	int findParent(int node,vector<int> &parent){
+	    if(parent[node]==node){
+	        return node;
+	    }
+	    return parent[node]=findParent(parent[node],parent);
+	}
+	void unionSet(int u , int v , vector<int> & parent , vector<int> & rank){
+	    if(rank[u]<rank[v]){
+	        parent[u]=v;
+	        //rank[v]++;
+	    }
+	    else if(rank[v]<rank[u]){
+	        parent[v]=u;
+	        //rank[u]++;
+	    }
+	    else{
+	        parent[v]=u;
+	        rank[u]++;
+	    }
+	}
     int spanningTree(int V, vector<vector<int>> adj[])
     {
         // code here
-         vector<pair<int, pair<int, int>>> edges;
-        for(int i=0; i<V; i++){
-            for(auto it: adj[i]){
-                //cout<<it[0]<<" "<<it[1]<<" "<<it[2]<<"tt\n";
-                edges.push_back({i, {it[0], it[1]}});
-            }
-        }
-        sort(edges.begin(),edges.end(),cmp);
-        vector<int> parent(V);
-        vector<int> rank(V);
+    
+        vector<pair<int,pair<int,int>>> edges;
         for(int i=0;i<V;i++){
-           rank[i]=0;
-           parent[i]=i;
+            for(auto j : adj[i]){
+                edges.push_back(  {i,{j[0], j[1]} } );
+            }
+            
+        }
+        vector<int> parent(V);
+        vector<int> rank(V,0);
+        for(int i=0;i<V;i++){
+            parent[i]=i;
         }
         int ans=0;
-    for(int i=0;i<edges.size();i++){
-        int u = edges[i].first;
-        int v= edges[i].second.first;
-        int wt= edges[i].second.second;
-        u=findParent(u,parent);
-        v=findParent(v,parent);
-        if(u!=v){
-            unionset(u,  v,parent,rank);
-            ans+=wt;            
+        sort(edges.begin(),edges.end(),cmp);
+        for(int i=0;i<edges.size();i++){
+            pair<int,pair<int,int>> p = edges[i];
+            int u = p.first;
+            int v= p.second.first;
+            int wt=p.second.second;
+            u= findParent(u,parent);
+            v= findParent(v,parent);
+            if(u!=v){
+                unionSet(u,v,parent,rank);
+                ans+=wt;
+            }
         }
-    }
         return ans;
+        
     }
 };
 
