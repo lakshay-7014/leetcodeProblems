@@ -107,20 +107,27 @@ class Solution {
   
     // Convert a given tree to a tree where every node contains sum of values of
     // nodes in left and right subtrees in the original tree
-    int isSum(Node* root){
+    
+    int sum(Node *root){
         if(root==NULL){
             return 0;
         }
-        int left=isSum(root->left);
-        int right=isSum(root->right);
-        int ans=left+right+root->data;
+        if(root->left==NULL && root->right==NULL){
+            int temp=root->data;
+            root->data=0;
+            return temp;
+        }
+        int left= sum(root->left);
+        int right=sum(root->right);
+        
+        int temp= root->data;
         root->data=left+right;
-        return ans;
+        return root->data+temp;
     }
     void toSumTree(Node *node)
     {
         // Your code here
-        int i = isSum(node);
+        sum(node);
     }
 };
 
