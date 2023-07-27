@@ -9,32 +9,32 @@ using namespace std;
 
 class Solution {
 public:
-
-    bool solve1(int mid,int k,  vector<int> &stalls){
-        int cow=1;
-        int first=stalls[0];
-        for(int i=0;i<stalls.size();i++){
-            if(stalls[i]-first>=mid){
-                cow++;
-                if(cow==k){
-                    return true;
-                }
-                first=stalls[i];
+    bool solve(int dist,int cow,int n , vector<int> & st){
+        int first=st[0];
+        int cnt=1;
+        for(int i=0;i<n;i++){
+            if(st[i]-first>=dist){
+                cnt++;
+                first=st[i];
             }
         }
+        if(cnt>=cow){
+            return true;
+        }
         return false;
+        
     }
-
     int solve(int n, int k, vector<int> &stalls) {
     
         // Write your code here
         sort(stalls.begin(),stalls.end());
         int s=0;
-        int e = stalls[n-1];
+        int e= stalls[n-1];
         int mid=s+(e-s)/2;
         int ans=-1;
+        
         while(s<=e){
-            if(solve1(mid,k,stalls)){
+            if(solve(mid,k,n,stalls)){
                 ans=mid;
                 s=mid+1;
             }
@@ -44,6 +44,7 @@ public:
             mid=s+(e-s)/2;
         }
         return ans;
+        
     }
 };
 
