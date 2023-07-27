@@ -12,7 +12,7 @@ public:
     bool solve(int dist,int cow,int n , vector<int> & st){
         int first=st[0];
         int cnt=1;
-        for(int i=0;i<n;i++){
+        for(int i=1;i<n;i++){
             if(st[i]-first>=dist){
                 cnt++;
                 first=st[i];
